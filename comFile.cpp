@@ -46,12 +46,52 @@ void comFile::write_txt(vector<string> info, string out_file, int Mode)
     
     for (int i = 0; i < num; i++)
     {
-        cout << info[i].c_str() << endl;
+        //cout << info[i].c_str() << endl;
         outfile << info[i] << "\r";
     }
     
     outfile.close();
-    std::cout << "write done!!" << endl;
+    //std::cout << "write done!!" << endl;
+    return;
+}
+void comFile::write_addtxt(vector<string> info, string in_file, string out_file)
+{
+    int num = info.size();
+
+    if (num <= 0)
+    {
+        std::cout << "write information is empty!!!please check input " << endl;
+        return;
+    }
+
+    ofstream infile,outfile;
+    infile.open(in_file.c_str());
+    outfile.open(out_file.c_str());
+
+    if (!infile.is_open())
+    {
+        std::cout << "open file :" << in_file << "has failed!!!!" << endl;
+        return;
+    }
+    if (!outfile.is_open())
+    {
+        std::cout << "open file :" << out_file << "has failed!!!!" << endl;
+        return;
+    }
+
+    for (int i = 0; i < num / 4; i++)
+    {
+        outfile << info[i] << " ";//num
+        outfile << info[i] << " ";//name
+        outfile << info[i] << " ";//team
+        outfile << info[i] << " ";//department
+        outfile << "10" << " ";//drawFactor
+        outfile << "0" << "\r";//award
+    }
+
+    infile.close();
+    outfile.close();
+    //std::cout << "write done!!" << endl;
     return;
 }
 
@@ -78,7 +118,7 @@ void comFile::read_txt(vector<string>& info, string in_file)
         string message;
         file >> message;                //读取的内容不包含换行符
 
-        std::cout << "comFile::read_txt--line :" << message << endl;
+       // std::cout << "comFile::read_txt--line :" << message << endl;
         info.push_back(message);
     }
 
@@ -129,14 +169,15 @@ void comFile::read_txt(vector<Employee > **info, string in_file)
         (*info)->push_back(*in);
     }
     (*info)->pop_back();
-
+    /*
     vector<Employee>::iterator tem;
     for (tem = (*info)->begin(); tem != (*info)->end(); ++tem)
     {
         (*tem).Print();
     }
-    std::cout << "info.size():" << (*info)->size() << endl;
+   */
+    //std::cout << "info.size():" << (*info)->size() << endl;
     file.close();
-    std::cout << "read done!!" << endl;
+    //std::cout << "read done!!" << endl;
     return ;
 }

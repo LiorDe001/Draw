@@ -527,6 +527,17 @@ using namespace std;
 #define CHAR char
 static int num = 0;
 
+string fileName_Orginal = "员工名单.txt";
+string fileName = "原始员工池.txt";
+string fileName_Award = "中奖者名单.txt";
+string fileName_NoAward = "未中奖者名单.txt";
+string fileName_WrSunAward = "阳光普照奖奖池名单.txt";
+string fileName_WrThrAward = "三等奖奖池名单.txt";
+string fileName_WrSndAward = "二等奖奖池名单.txt";
+string fileName_WrOneAward = "一等奖奖池名单.txt";
+string fileName_WrTopAward = "特等奖奖池名单.txt";
+string fileName_WrAward = "特殊抽奖池名单.txt";//指定部门或团队内部抽奖所用
+
 #define NumSunAward  6    //阳光普照奖名额
 #define NumThrAward  3   //三等奖名额
 #define NumSndAward  2   //二等奖名额
@@ -537,56 +548,46 @@ static int num = 0;
 
 int main()
 {
-	string fileName = "原始员工池.txt";
-	string fileName_Award = "中奖者名单.txt";
-	string fileName_NoAward = "未中奖者名单.txt";
-	string fileName_WrSunAward = "阳光普照奖奖池名单.txt";
-	string fileName_WrThrAward = "三等奖奖池名单.txt";
-	string fileName_WrSndAward = "二等奖奖池名单.txt";
-	string fileName_WrOneAward = "一等奖奖池名单.txt";
-	string fileName_WrTopAward = "特等奖奖池名单.txt";
-
-	string fileName_WrAward = "特殊抽奖池名单.txt";//指定部门或团队内部抽奖所用
-
-
 	comFile Rd,Wr;
-	vector<string> information;
-	vector<Employee> *Prd;
+	vector<string> information,Pr;
+	vector<Employee> *Prd = NULL;
 	//vector<Employee> *Pwr;
-	vector<Employee> *Paw;//已中奖
-	
-	//设置员工的初始抽奖权重。。。
+	vector<Employee> *Paw = NULL;//已中奖
 	vector<int> weight;//权重
 	int* p = NULL; //定义与封装函数返回值类型相同的指针变量,来接收返回地址
+
+	//员工名单 --> 原始员工池
+	Rd.read_txt(Pr, fileName_Orginal);
+	Rd.write_addtxt(Pr, fileName_Orginal, fileName);
+
 	Rd.read_txt(&Prd, fileName);
-	//ReadRecord(P);
 	num = Prd->size();
-	cout << "Welcome to the Lottery system!" << endl;
+	std::cout << "Welcome to the Lottery system!" << endl;
 	for (int y = 0;; y++)
 	{
-		cout << "*******************************" << endl;
-		cout << "功能介绍：" << endl;
-		cout << "1.抽取阳光普照奖" << endl;
-		cout << "2.抽取三等奖" << endl;
-		cout << "3.抽取二等奖" << endl;
-		cout << "4.抽取一等奖" << endl;
-		cout << "5.抽取特等奖" << endl;
-		cout << "6.添加特定员工" << endl;
-		cout << "7.删除特定员工" << endl;
-		cout << "8.按工号修改员工抽奖权重" << endl;
-		cout << "9.按团队修改员工抽奖权重" << endl;
-		cout << "10.已中奖员工返回奖池" << endl;
-		cout << "11.特定中奖员工群返回奖池" << endl;//按中奖属性返回（未中奖池中保存的）
-		cout << "12.退出" << endl;
-		cout << "*******************************" << endl;
+		std::cout << "*******************************" << endl;
+		std::cout << "功能介绍：" << endl;
+		std::cout << "1.抽取阳光普照奖" << endl;
+		std::cout << "2.抽取三等奖" << endl;
+		std::cout << "3.抽取二等奖" << endl;
+		std::cout << "4.抽取一等奖" << endl;
+		std::cout << "5.抽取特等奖" << endl;
+		std::cout << "6.添加特定员工" << endl;
+		std::cout << "7.删除特定员工" << endl;
+		std::cout << "8.按工号修改员工抽奖权重" << endl;
+		std::cout << "9.按团队修改员工抽奖权重" << endl;
+		std::cout << "10.已中奖员工返回奖池" << endl;
+		std::cout << "11.特定中奖员工群返回奖池" << endl;//按中奖属性返回（未中奖池中保存的）
+		std::cout << "12.退出" << endl;
+		std::cout << "*******************************" << endl;
 		int choise;
 		Employee* add = new Employee;
 		Employee* del = new Employee;
 		string NA, m, z;
 		string TE;
-	lop:cout << "请选择你要进行的操作编号：";
-		cin >> choise;
-		int nPosition;
+	lop:std::cout << "请选择你要进行的操作编号：";
+		std::cin >> choise;
+		//int nPosition;
 		switch (choise)
 		{
 		case 1://抽取阳光普照奖
@@ -769,7 +770,6 @@ int main()
 		case 5://抽取特等奖
 		{
 			//颁发特等奖
-//将部分中奖员工返回奖池。。。
 			std::cout << " 颁发特等奖 " << endl;
 			for (vector<Employee>::iterator iter = Prd->begin(); iter != Prd->end(); iter++)
 			{
@@ -790,7 +790,7 @@ int main()
 				iter = Prd->begin() + p[i];
 				iter->SetAward("特等奖");
 			}
-			for (iter = Prd->begin(); iter != Prd->end();)
+			for ( iter = Prd->begin(); iter != Prd->end();)
 			{
 				if (iter->GetAward() == "特等奖")
 				{
@@ -814,58 +814,76 @@ int main()
 
 		case 6://添加特定员工
 		{
-			cout << "请输入：" << endl;
+			std::cout << "请输入：" << endl;
 			add->Set();
 			Prd->push_back(*add);
 			num++;
 		}
-
 		break;
-		case 7://删除特定员工
+
+		case 7://删除特定员工			
 		{
-			cout << "请输入：" << endl;
-			del->Set();
-			vector<Employee>::iterator iElement = std::find(Prd->begin(), Prd->end(), *del);
-			if (iElement != Prd->end())
+			std::cout << "需要删除特定员工工号：";
+			std::cin >> m;
+			std::cout << "" << endl;
+			vector<Employee>* Pdel;//已中奖
+			Rd.read_txt(&Pdel, fileName);
+			for (vector<Employee>::iterator idel = Pdel->begin(); idel != Pdel->end(); idel++)
 			{
-				//int nPosition = distance(Prd->begin(), iElement);
-				int nPosition = std::distance(std::begin(*Prd), iElement);
+				if (idel->GetNum() == m)
+				{
+					idel = (Pdel->erase(idel));
+					num--;
+					if (idel == Pdel->end()) break;
+				}
+				else
+				{
+					string text = idel->GetNum() + " " + idel->GetName() + " " + idel->GetTeam() + " " + idel->GetDepartment() + " " + idel->GetDrawFactor() + " " + idel->GetAward();
+					information.push_back(text);
+					Wr.write_txt(information, fileName);
+					information.clear();
+					//迭代器指向下一个元素位置
+					++idel;
+				}
 			}
-			Prd->erase(Prd->begin() + nPosition);
-			//Prd->push_back(*in);
-			num--;
+			if (Pdel)
+			{
+				delete Pdel;
+				Pdel = NULL;
+			}
 			break;
 		}
 		case 8://按工号修改员工抽奖权重
 		{
-			cout << "请输入要修改抽奖权重的员工工号：";
-			cin >> m;
-			cout << "" << endl;
+			std::cout << "请输入要修改抽奖权重的员工工号：";
+			std::cin >> m;
+			std::cout << "" << endl;
 			for (vector<Employee>::iterator iElement = Prd->begin(); iElement != Prd->end(); iElement++)
 			{
 				if (iElement->GetNum() == m)
 				{
-					cout << "请输入新的抽奖权重(0-100,默认10)：";
-					cin >> z;
-					cout << "" << endl;
+					std::cout << "请输入新的抽奖权重(0-100,默认10)：";
+					std::cin >> z;
+					std::cout << "" << endl;
 					iElement->SetDrawFactor(z);
 					break;
 				}
 			}
+			break;
 		}
-
+		
 		case 9://按团队修改员工抽奖权重
 		{
-			cout << "请输入要修改抽奖权重的团队(如“MCP1队”)：";
-			cin >> m;
-			cout << "" << endl;
+			std::cout << "请输入要修改抽奖权重的团队(如“MCP1队”)：";
+			std::cin >> m;
+			std::cout << "" << endl;
 			for (vector<Employee>::iterator iElement = Prd->begin(); iElement != Prd->end(); iElement++)
 			{
 				if (iElement->GetTeam() == m)
 				{
-					cout << "请输入新的抽奖权重(0-100,默认10)：";
-					cin >> z;
-					cout << "" << endl;
+					std::cout << "请输入新的抽奖权重(0-100,默认10)：";
+					std::cin >> z;
+					std::cout << "" << endl;
 					iElement->SetDrawFactor(z);
 				}
 			}
@@ -874,50 +892,102 @@ int main()
 
 		case 10://已中奖员工返回奖池
 		{
-			cout << "已中奖且需返回奖池员工工号：";
-			cin >> m;
-			cout << "" << endl;
+			std::cout << "已中奖且需返回奖池员工工号：";
+			std::cin >> m;
+			std::cout << "" << endl;
 			Rd.read_txt(&Paw, fileName_Award);
 			for (vector<Employee>::iterator iElement = Paw->begin(); iElement != Paw->end(); iElement++)
 			{
 				if (iElement->GetNum() == m)
 				{
-					cout << "请输入：" << endl;
+					//cout << "请输入：" << endl;
 					Prd->push_back(*iElement);
 					num++;
+
 					//fileName_Award删除此元素
-					break;
+					vector<Employee>* Pdel;//已中奖
+					Rd.read_txt(&Pdel, fileName_Award);
+					for (vector<Employee>::iterator idel = Pdel->begin(); idel != Pdel->end(); idel++)
+					{
+						if (idel->GetNum() == m)
+						{
+							idel = (Pdel->erase(idel));
+							if (idel == Pdel->end()) break;
+						}
+						else
+						{
+							string text = idel->GetNum() + " " + idel->GetName() + " " + idel->GetTeam() + " " + idel->GetDepartment() + " " + idel->GetDrawFactor() + " " + idel->GetAward();
+							information.push_back(text);
+							Wr.write_txt(information, fileName_Award);//保存中奖者名单
+							information.clear();
+							//迭代器指向下一个元素位置
+							++idel;
+						}
+					}
+					if (Pdel)
+					{
+						delete Pdel;
+						Pdel = NULL;
+					}
+					
 				}
+				break;
 			}
+			break;
 		}
 		case 11://特定中奖员工群返回奖池
 		{
-			cout << "特定中奖员工群的中奖信息(如“三等奖”)：";
-			cin >> m;
-			cout << "" << endl;
+			std::cout << "特定中奖员工群的中奖信息(如“三等奖”)：";
+			std::cin >> m;
+			std::cout << "" << endl;
 			Rd.read_txt(&Paw, fileName_Award);
 			for (vector<Employee>::iterator iElement = Paw->begin(); iElement != Paw->end(); iElement++)
 			{
 				if (iElement->GetAward() == m)
 				{
-					cout << "请输入：" << endl;
+					//cout << "请输入：" << endl;
 					Prd->push_back(*iElement);
 					num++;
+
 					//fileName_Award删除此元素
-					break;
+					vector<Employee>* Pdel;//已中奖
+					Rd.read_txt(&Pdel, fileName_Award);
+					for (vector<Employee>::iterator idel = Pdel->begin(); idel != Pdel->end(); idel++)
+					{
+						if (idel->GetAward() == m)
+						{
+							idel = (Pdel->erase(idel));
+							if (idel == Pdel->end()) break;
+						}
+						else
+						{
+							string text = idel->GetNum() + " " + idel->GetName() + " " + idel->GetTeam() + " " + idel->GetDepartment() + " " + idel->GetDrawFactor() + " " + idel->GetAward();
+							information.push_back(text);
+							Wr.write_txt(information, fileName_Award);//保存中奖者名单
+							information.clear();
+							//迭代器指向下一个元素位置
+							++idel;
+						}
+					}
+					if (Pdel)
+					{
+						delete Pdel;
+						Pdel = NULL;
+					}
 				}
 			}
+			break;
 		}
 		case 12://退出系统
 		{
 			goto loop;
 		}
 		default:
-			cout << "输入有误，请重新输入！" << endl;
+			std::cout << "输入有误，请重新输入！" << endl;
 			goto lop;
 		}
 	}
-loop:cout << "欢迎再次使用本系统，再见！" << endl;
+loop:std::cout << "欢迎再次使用本系统，再见！" << endl;
 {
 		//未中奖人员名单
 		std::cout << " 未中奖人员名单 " << endl;
