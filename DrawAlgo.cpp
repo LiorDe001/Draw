@@ -90,9 +90,12 @@ int* GetRandomNumWithWeight(vector<int> weight, int number)
     auto randoms = CreateRandomNums(0, size, number);
     for (int i = 0; i < number; i++)
     {
-            p[i] = '\0';
-            p[i] = randoms[i];
-            cout << p[i] << endl;
+        if (i <= 0) {
+            printf("分配的动态地址不合法！\n");
+            exit(-1);
+        }
+        p[i] = randoms[i];
+        cout << p[i] << endl;
     }
     /*
     for_each(randoms.cbegin(), randoms.cend(), 
