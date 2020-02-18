@@ -1,14 +1,18 @@
 #pragma once
 #include <string>
 #include <iostream>
+
 using namespace std;
+
 class Employee
 {
 public:
+    Employee() {};
     Employee(string num, string name, string team, string department, string factor, string award);
     Employee(string num, string name, string team, string department);
     ~Employee();
 
+    void Set();
     void SetNum(string num);
     void SetName(string name);
     void SetTeam(string team);
@@ -24,12 +28,12 @@ public:
     string GetAward();
     void Print();//显示员工信息
 private:
-    string num;//工号
-    string name;//姓名
-    string team;//团队
-    string department;//部门
-    string drawfactor;//抽奖权重
-    string award;
+    string num = " ";//工号
+    string name = " ";//姓名
+    string team = " ";//团队
+    string department = " ";//部门
+    string drawfactor = " ";//抽奖权重
+    string award = " ";
 };
 
 

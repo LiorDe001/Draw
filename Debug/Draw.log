@@ -1,2 +1,22 @@
 ﻿  Draw.cpp
-  Draw.vcxproj -> D:\GitHub\Debug\Draw.exe
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xutility(4367,21): error C2676: 二进制“==”:“Employee”不定义该运算符或到预定义运算符可接收的类型的转换
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xutility(4383): message : 查看对正在编译的函数 模板 实例化“_InIt std::_Find_unchecked1<_InIt,_Ty>(_InIt,const _InIt,const _Ty &,std::false_type)”的引用
+          with
+          [
+              _InIt=Employee *,
+              _Ty=Employee
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.24.28314\include\xutility(4389): message : 查看对正在编译的函数 模板 实例化“_InIt std::_Find_unchecked<Employee*,_Ty>(const _InIt,const _InIt,const _Ty &)”的引用
+          with
+          [
+              _InIt=Employee *,
+              _Ty=Employee
+          ]
+D:\GitHub\Draw\Draw.cpp(828): message : 查看对正在编译的函数 模板 实例化“_InIt std::find<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,Employee>(_InIt,const _InIt,const _Ty &)”的引用
+          with
+          [
+              _InIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Employee>>>,
+              _Ty=Employee
+          ]
+  DrawAlgo.cpp
+  正在生成代码...

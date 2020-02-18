@@ -10,6 +10,12 @@ comFile::~comFile()
     //dtor
 }
 
+void comFile::file_empty(string out_file)
+{
+    fstream file(out_file, ios::ate | ios::out);
+    file.close();
+}
+
 void comFile::write_txt(vector<string> info, string out_file, int Mode)
 {
     int num = info.size();
@@ -40,6 +46,7 @@ void comFile::write_txt(vector<string> info, string out_file, int Mode)
     
     for (int i = 0; i < num; i++)
     {
+        cout << info[i].c_str() << endl;
         outfile << info[i] << "\r";
     }
     
@@ -131,6 +138,5 @@ void comFile::read_txt(vector<Employee > **info, string in_file)
     std::cout << "info.size():" << (*info)->size() << endl;
     file.close();
     std::cout << "read done!!" << endl;
-
     return ;
 }

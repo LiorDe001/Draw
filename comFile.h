@@ -18,8 +18,9 @@ public:
     comFile();
     ~comFile();
 
+    void file_empty(const string out_file);
     void write_txt(vector<string> info, string out_file, int Mode = 1);
-    void write_txt(vector<Employee >** info, string out_file, int Mode = 1);
+    //void write_txt(vector<Employee >** info, string out_file, int Mode = 1);
 
     void read_txt(vector<string>& info, string in_file);
     void read_txt(vector<Employee> **info, string in_file);

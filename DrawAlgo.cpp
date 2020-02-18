@@ -73,6 +73,10 @@ vector<int> CreateRandomNums(int min, int max, int num)
 // Parameter: int number	　　　:生成随机数的数量
 int* GetRandomNumWithWeight(vector<int> weight, int number)
 {
+    if (number <= 0 ) {
+        printf("生成随机数的数量不合法！\n");
+        exit(-1);
+    }
     int* p = (int*)malloc(number * sizeof(int));
     int ptr = 0;
     //*info = new vector<Employee>();
@@ -86,8 +90,9 @@ int* GetRandomNumWithWeight(vector<int> weight, int number)
     auto randoms = CreateRandomNums(0, size, number);
     for (int i = 0; i < number; i++)
     {
-        p[i] = randoms[i];
-        cout << p[i] << endl;
+            p[i] = '\0';
+            p[i] = randoms[i];
+            cout << p[i] << endl;
     }
     /*
     for_each(randoms.cbegin(), randoms.cend(), 

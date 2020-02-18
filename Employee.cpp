@@ -19,6 +19,33 @@ Employee::Employee(string num, string name, string team, string department)
     this->award = "0";
 }
 
+void Employee::Set()
+{
+    cout << "工号：";
+    cin >> num;
+    cout << "" << endl;
+
+    cout << "姓名：";
+    cin >> name;
+    cout << "" << endl;
+
+    cout << "团队:";
+    cin >> team;
+    cout << "" << endl;
+
+    cout << "部门:";
+    cin >> department;
+    cout << "" << endl;
+
+    cout << "抽奖权重(0-100,默认10)：";
+    cin >> drawfactor;
+    cout << "" << endl;
+
+    cout << "中奖情况(默认未中奖为0)：";
+    cin >> award;
+    cout << "输入完毕！" << endl;
+}
+
 Employee::~Employee()
 {
     //dtor
